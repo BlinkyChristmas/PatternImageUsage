@@ -16,6 +16,7 @@
       "size" : "32x32"
     },
     {
+      "filename" : "ChristmasBulbs2.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
@@ -36,6 +37,7 @@
       "size" : "256x256"
     },
     {
+      "filename" : "ChristmasBulbs.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"

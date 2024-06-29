@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17150" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17150"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,9 +11,10 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="PatternImageUsage" customModuleProvider="target">
             <connections>
+                <outlet property="settingsData" destination="wGB-tc-bTh" id="RmF-00-mcd"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -31,7 +32,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="showWindow:" target="gf2-3D-Ryc" id="KLg-nI-otz"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -683,16 +688,65 @@
         <window title="PatternImageUsage" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="contentRect" x="2149" y="680" width="556" height="92"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="5120" height="1415"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="572" height="92"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qe3-oz-6NI">
+                        <rect key="frame" x="48" y="45" width="185" height="32"/>
+                        <buttonCell key="cell" type="push" title="List Pattern/Image usage" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nbv-N6-FCZ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="listUsage:" target="Voe-Tx-rLC" id="H3K-G7-33J"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GkR-sS-19r">
+                        <rect key="frame" x="490" y="13" width="69" height="32"/>
+                        <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vwV-5a-aXy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="endWindow:" target="Voe-Tx-rLC" id="mXM-8u-ufm"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NHW-BN-2FF">
+                        <rect key="frame" x="301" y="45" width="213" height="32"/>
+                        <buttonCell key="cell" type="push" title="Show Unused Pattern Images" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yRb-ue-1zc">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="listUnused:" target="Voe-Tx-rLC" id="3BP-19-5Gy"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Ipv-Lr-0wO"/>
+                    <constraint firstAttribute="bottom" secondItem="GkR-sS-19r" secondAttribute="bottom" constant="20" symbolic="YES" id="VZG-E0-Buv"/>
+                    <constraint firstAttribute="trailing" secondItem="GkR-sS-19r" secondAttribute="trailing" constant="20" symbolic="YES" id="YaC-cF-nfB"/>
+                    <constraint firstItem="NHW-BN-2FF" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="ePb-64-VLJ"/>
+                    <constraint firstAttribute="trailing" secondItem="NHW-BN-2FF" secondAttribute="trailing" constant="65" id="fqk-IC-vCe"/>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="top" secondItem="NHW-BN-2FF" secondAttribute="bottom" constant="12" symbolic="YES" id="hnH-IC-oth"/>
+                    <constraint firstItem="NHW-BN-2FF" firstAttribute="firstBaseline" secondItem="qe3-oz-6NI" secondAttribute="firstBaseline" id="inU-Sg-X60"/>
+                    <constraint firstItem="NHW-BN-2FF" firstAttribute="leading" secondItem="qe3-oz-6NI" secondAttribute="trailing" constant="82" id="ja9-8c-WLK"/>
+                    <constraint firstItem="qe3-oz-6NI" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="55" id="qpg-bT-fpt"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="top-28-M4D"/>
             </connections>
-            <point key="canvasLocation" x="200" y="400"/>
+            <point key="canvasLocation" x="404" y="277"/>
         </window>
+        <customObject id="wGB-tc-bTh" customClass="SettingsData" customModule="PatternImageUsage" customModuleProvider="target"/>
+        <customObject id="gf2-3D-Ryc" customClass="SettingsDialog" customModule="PatternImageUsage" customModuleProvider="target">
+            <connections>
+                <outlet property="masterData" destination="wGB-tc-bTh" id="axe-X2-eJF"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
