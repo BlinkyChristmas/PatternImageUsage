@@ -7,6 +7,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet var window: NSWindow!
     @IBOutlet var settingsData:SettingsData!
+    @IBOutlet var textView:NSTextView!
+    
     var bundleDictionary=[String:LightBundle]()
     var bundleObserver:NSKeyValueObservation?
     deinit {
@@ -151,10 +153,10 @@ extension AppDelegate {
         for entry in sequences {
             let (usedPattern,usedImage) = try imagesPatternsUsedInSequence(url: entry, bundleDictionary: bundleDictionary, baseDirectory: homeDirectory)
             for pat in usedPattern {
-                patterns.insert(pat)
+                patterns.insert(pat.standardized)
             }
             for img in usedImage {
-                images.insert(img)
+                images.insert(img.standardized)
             }
         }
         return (patterns,images)
@@ -172,15 +174,15 @@ extension AppDelegate {
                         if element != nil {
                             var node = element?.attribute(forName: "startImage")
                             if node?.stringValue != nil {
-                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!))
+                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!).standardized)
                             }
                             node = element?.attribute(forName: "endImage")
                             if node?.stringValue != nil {
-                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!))
+                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!).standardized)
                             }
                             node = element?.attribute(forName: "maskImage")
                             if node?.stringValue != nil {
-                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!))
+                                rvalue.insert(imageDirectory.appending(path: node!.stringValue!).standardized)
                             }
                         }
                     }
@@ -196,7 +198,7 @@ extension AppDelegate {
     func patternsForSequenceItem(sequenceItem:SeqItem, patternDirectory:URL)  -> Set<URL> {
         var rvalue = Set<URL>()
         for effect in sequenceItem.effects {
-            rvalue.insert(patternDirectory.appending(path: effect.pattern!))
+            rvalue.insert(patternDirectory.appending(path: effect.pattern!).standardized)
         }
         return rvalue
     }
@@ -236,7 +238,7 @@ extension AppDelegate {
             for patternUrls in patternData.keys {
                 patterns.insert(patternUrls)
                 for imageURL in patternData[patternUrls]! {
-                    images.insert(imageURL)
+                    images.insert(imageURL.standardized)
                 }
             }
         }
@@ -266,7 +268,7 @@ extension AppDelegate {
                     for entry in seqItem.keys {
                         usedPatterns.insert(entry)
                         for pattern in seqItem[entry]! {
-                            usedImages.insert(pattern)
+                            usedImages.insert(pattern.standardized)
                         }
                     }
                 }
@@ -325,5 +327,38 @@ extension AppDelegate {
         }
 
         
+    }
+    
+    @IBAction func querySequence( _ sender: Any) {
+        let panel = NSOpenPanel()
+        panel.directoryURL = settingsData.sequenceDirectory
+        panel.allowedContentTypes = [UTType(filenameExtension: "sequence")!]
+        panel.prompt = "Query Sequence(s)"
+        panel.allowsMultipleSelection = true
+        
+        panel.beginSheetModal(for: self.window) { response in
+            guard response == .OK, !panel.urls.isEmpty else { return }
+            var text = String()
+            do {
+                for url in panel.urls {
+                    let contents = try self.patternsImagesInSequence(url: url, bundleDictionary: self.bundleDictionary, baseDirectory: self.settingsData.homeDirectory!)
+                    text += "Sequence: " + url.path().replacingOccurrences(of: "%60", with: "`") + "\n"
+                    for (item,imagePattern) in contents {
+                        text += "\tSequence Item: " + item + "\n"
+                        for (pattern,images) in imagePattern {
+                            text += "\t\tPattern: " + pattern.path().replacingOccurrences(of: "%60", with: "`") + "\n"
+                            for image in images {
+                                text += "\t\t\tImage: " + image.path().replacingOccurrences(of: "%60", with: "`") + "\n"
+                            }
+                        }
+                    }
+                    text += "\n"
+                }
+                self.textView.string = text
+            }
+            catch {
+                NSAlert(error: error).beginSheetModal(for: self.window)
+            }
+        }
     }
 }

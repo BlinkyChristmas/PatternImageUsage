@@ -15,6 +15,7 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="PatternImageUsage" customModuleProvider="target">
             <connections>
                 <outlet property="settingsData" destination="wGB-tc-bTh" id="RmF-00-mcd"/>
+                <outlet property="textView" destination="Wap-P6-rO1" id="iFc-CP-e1z"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -688,24 +689,14 @@
         <window title="PatternImageUsage" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="2149" y="680" width="556" height="92"/>
+            <rect key="contentRect" x="2149" y="680" width="1241" height="325"/>
             <rect key="screenRect" x="0.0" y="0.0" width="5120" height="1415"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="572" height="92"/>
+                <rect key="frame" x="0.0" y="0.0" width="1241" height="325"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qe3-oz-6NI">
-                        <rect key="frame" x="48" y="45" width="185" height="32"/>
-                        <buttonCell key="cell" type="push" title="List Pattern/Image usage" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nbv-N6-FCZ">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="listUsage:" target="Voe-Tx-rLC" id="H3K-G7-33J"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GkR-sS-19r">
-                        <rect key="frame" x="490" y="13" width="69" height="32"/>
+                        <rect key="frame" x="1159" y="13" width="69" height="32"/>
                         <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vwV-5a-aXy">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -714,19 +705,9 @@
                             <action selector="endWindow:" target="Voe-Tx-rLC" id="mXM-8u-ufm"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NHW-BN-2FF">
-                        <rect key="frame" x="301" y="45" width="213" height="32"/>
-                        <buttonCell key="cell" type="push" title="Show Unused Pattern Images" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yRb-ue-1zc">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="listUnused:" target="Voe-Tx-rLC" id="3BP-19-5Gy"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1w-os-VZ8">
-                        <rect key="frame" x="48" y="13" width="102" height="32"/>
-                        <buttonCell key="cell" type="push" title="Move Used" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LFW-Xf-s4e">
+                        <rect key="frame" x="13" y="13" width="258" height="32"/>
+                        <buttonCell key="cell" type="push" title="Create Used Image/Pattern Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LFW-Xf-s4e">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -734,25 +715,61 @@
                             <action selector="moveUsedData:" target="Voe-Tx-rLC" id="XO9-Bx-Px7"/>
                         </connections>
                     </button>
+                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REJ-re-6pu">
+                        <rect key="frame" x="20" y="60" width="1201" height="245"/>
+                        <clipView key="contentView" drawsBackground="NO" id="IXY-AB-dXx">
+                            <rect key="frame" x="0.0" y="0.0" width="1186" height="245"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Wap-P6-rO1">
+                                    <rect key="frame" x="0.0" y="0.0" width="1186" height="245"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <size key="minSize" width="1186" height="245"/>
+                                    <size key="maxSize" width="1186" height="10000000"/>
+                                </textView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="be6-9l-e2I">
+                            <rect key="frame" x="-100" y="-100" width="225" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="3Xf-qg-cLe">
+                            <rect key="frame" x="1186" y="0.0" width="15" height="245"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TlI-dr-GWB">
+                        <rect key="frame" x="553" y="13" width="135" height="32"/>
+                        <buttonCell key="cell" type="push" title="Query Sequence" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ak2-7i-aka">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="querySequence:" target="Voe-Tx-rLC" id="OcC-ce-izX"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GkR-sS-19r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Ipv-Lr-0wO"/>
-                    <constraint firstItem="GkR-sS-19r" firstAttribute="firstBaseline" secondItem="T1w-os-VZ8" secondAttribute="firstBaseline" id="Qzd-Ho-K3n"/>
-                    <constraint firstAttribute="bottom" secondItem="GkR-sS-19r" secondAttribute="bottom" constant="20" symbolic="YES" id="VZG-E0-Buv"/>
-                    <constraint firstAttribute="trailing" secondItem="GkR-sS-19r" secondAttribute="trailing" constant="20" symbolic="YES" id="YaC-cF-nfB"/>
-                    <constraint firstItem="NHW-BN-2FF" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="ePb-64-VLJ"/>
-                    <constraint firstAttribute="trailing" secondItem="NHW-BN-2FF" secondAttribute="trailing" constant="65" id="fqk-IC-vCe"/>
-                    <constraint firstItem="GkR-sS-19r" firstAttribute="top" secondItem="NHW-BN-2FF" secondAttribute="bottom" constant="12" symbolic="YES" id="hnH-IC-oth"/>
-                    <constraint firstItem="T1w-os-VZ8" firstAttribute="leading" secondItem="qe3-oz-6NI" secondAttribute="leading" id="iAk-2i-7c4"/>
-                    <constraint firstItem="NHW-BN-2FF" firstAttribute="firstBaseline" secondItem="qe3-oz-6NI" secondAttribute="firstBaseline" id="inU-Sg-X60"/>
-                    <constraint firstItem="NHW-BN-2FF" firstAttribute="leading" secondItem="qe3-oz-6NI" secondAttribute="trailing" constant="82" id="ja9-8c-WLK"/>
-                    <constraint firstItem="qe3-oz-6NI" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="55" id="qpg-bT-fpt"/>
+                    <constraint firstItem="TlI-dr-GWB" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="0cQ-F3-AzP"/>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="firstBaseline" secondItem="T1w-os-VZ8" secondAttribute="firstBaseline" id="6YK-vf-0kA"/>
+                    <constraint firstItem="T1w-os-VZ8" firstAttribute="leading" secondItem="REJ-re-6pu" secondAttribute="leading" id="GOl-lU-YBk"/>
+                    <constraint firstItem="T1w-os-VZ8" firstAttribute="top" secondItem="REJ-re-6pu" secondAttribute="bottom" constant="20" symbolic="YES" id="QDS-D9-Z1j"/>
+                    <constraint firstAttribute="trailing" secondItem="REJ-re-6pu" secondAttribute="trailing" constant="20" symbolic="YES" id="XW4-D4-nRc"/>
+                    <constraint firstItem="REJ-re-6pu" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Xk9-nF-oeO"/>
+                    <constraint firstAttribute="bottom" secondItem="TlI-dr-GWB" secondAttribute="bottom" constant="20" symbolic="YES" id="dqf-jG-uSW"/>
+                    <constraint firstItem="TlI-dr-GWB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T1w-os-VZ8" secondAttribute="trailing" constant="12" symbolic="YES" id="fEy-og-XSP"/>
+                    <constraint firstItem="TlI-dr-GWB" firstAttribute="firstBaseline" secondItem="T1w-os-VZ8" secondAttribute="firstBaseline" id="fc4-70-Zdy"/>
+                    <constraint firstItem="REJ-re-6pu" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="kxL-ch-PMR"/>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="trailing" secondItem="REJ-re-6pu" secondAttribute="trailing" id="lY2-3c-K2x"/>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TlI-dr-GWB" secondAttribute="trailing" constant="12" symbolic="YES" id="pBy-RY-ExK"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="top-28-M4D"/>
             </connections>
-            <point key="canvasLocation" x="404" y="277"/>
+            <point key="canvasLocation" x="574.5" y="376.5"/>
         </window>
         <customObject id="wGB-tc-bTh" customClass="SettingsData" customModule="PatternImageUsage" customModuleProvider="target"/>
         <customObject id="gf2-3D-Ryc" customClass="SettingsDialog" customModule="PatternImageUsage" customModuleProvider="target">
