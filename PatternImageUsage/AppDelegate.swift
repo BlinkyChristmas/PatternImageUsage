@@ -232,7 +232,7 @@ extension AppDelegate {
         let alldata = try patternsImagesInSequence(url: url, bundleDictionary: bundleDictionary, baseDirectory: baseDirectory)
         var patterns = Set<URL>()
         var images = Set<URL>()
-        for (name,patternData) in alldata {
+        for (_,patternData) in alldata {
             for patternUrls in patternData.keys {
                 patterns.insert(patternUrls)
                 for imageURL in patternData[patternUrls]! {
@@ -241,5 +241,89 @@ extension AppDelegate {
             }
         }
         return (patterns,images)
+    }
+    
+    @IBAction func moveUsedData(_ sender: Any) {
+        guard let homeDirectory = settingsData.homeDirectory else { return }
+        let usedPatternDirectory = "UsedPatterns"
+        let usedImageDirectory = "UsedImages"
+        
+        let baseUsedPattern = homeDirectory.appending(path: usedPatternDirectory)
+        let baseUsedImage = homeDirectory.appending(path: usedImageDirectory)
+        
+        // Get all the images/patterns
+        let sequences = self.allContentsMatching(fileExtension: "sequence", searchDirectory: self.settingsData.sequenceDirectory!)
+        if sequences.isEmpty {
+            return
+        }
+        var usedPatterns = Set<URL>()
+        var usedImages = Set<URL>()
+        do {
+            //var outstring = String()
+            for sequence in sequences {
+                let items = try self.patternsImagesInSequence(url: sequence, bundleDictionary: self.bundleDictionary, baseDirectory: self.settingsData.homeDirectory!)
+                for (_,seqItem) in items {
+                    for entry in seqItem.keys {
+                        usedPatterns.insert(entry)
+                        for pattern in seqItem[entry]! {
+                            usedImages.insert(pattern)
+                        }
+                    }
+                }
+                
+            }
+            // Ok, we now have all the patterns and images
+            if !baseUsedImage.exist {
+                // This doesn't exist, create it
+                try FileManager.default.createDirectory(at: baseUsedImage, withIntermediateDirectories: true)
+            }
+            let imagePrefix = settingsData.imageDirectory!
+            
+            for image in usedImages {
+                var imagePathString = image.path()
+                imagePathString.removeFirst(imagePrefix.path().count)
+                imagePathString = imagePathString.replacingOccurrences(of: "%60", with: "`")
+
+                let newFile = baseUsedImage.appending(path: imagePathString)
+                let tempDir = newFile.deletingLastPathComponent()
+                if !tempDir.exist {
+                  
+                    try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+                }
+                if !newFile.exist {
+                   // Swift.print("Copy: \(image.path()) to \(newFile.path())")
+                    try FileManager.default.copyItem(at: image, to: newFile)
+                }
+            }
+            
+            // Ok, we now have all the patterns and images
+            if !baseUsedPattern.exist {
+                // This doesn't exist, create it
+                try FileManager.default.createDirectory(at: baseUsedPattern, withIntermediateDirectories: true)
+            }
+            let patternPrefix = settingsData.patternDirectory!
+            
+            for pattern in usedPatterns {
+                var patternPathString = pattern.path()
+                patternPathString.removeFirst(patternPrefix.path().count)
+                patternPathString = patternPathString.replacingOccurrences(of: "%60", with: "`")
+                let newFile = baseUsedPattern.appending(path: patternPathString)
+                let tempDir = newFile.deletingLastPathComponent()
+                if !tempDir.exist {
+                    try FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+                }
+                if !newFile.exist {
+                    //Swift.print("Copy: \(pattern.path()) to \(newFile.path())")
+                    try FileManager.default.copyItem(at: pattern, to: newFile)
+                }
+               
+            }
+            
+        }
+        catch {
+            NSAlert(error: GeneralError(errorMessage: "Failure: ",failure: error.localizedDescription)).beginSheetModal(for: self.window)
+        }
+
+        
     }
 }

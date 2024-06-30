@@ -724,14 +724,26 @@
                             <action selector="listUnused:" target="Voe-Tx-rLC" id="3BP-19-5Gy"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T1w-os-VZ8">
+                        <rect key="frame" x="48" y="13" width="102" height="32"/>
+                        <buttonCell key="cell" type="push" title="Move Used" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LFW-Xf-s4e">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="moveUsedData:" target="Voe-Tx-rLC" id="XO9-Bx-Px7"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="GkR-sS-19r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="Ipv-Lr-0wO"/>
+                    <constraint firstItem="GkR-sS-19r" firstAttribute="firstBaseline" secondItem="T1w-os-VZ8" secondAttribute="firstBaseline" id="Qzd-Ho-K3n"/>
                     <constraint firstAttribute="bottom" secondItem="GkR-sS-19r" secondAttribute="bottom" constant="20" symbolic="YES" id="VZG-E0-Buv"/>
                     <constraint firstAttribute="trailing" secondItem="GkR-sS-19r" secondAttribute="trailing" constant="20" symbolic="YES" id="YaC-cF-nfB"/>
                     <constraint firstItem="NHW-BN-2FF" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="ePb-64-VLJ"/>
                     <constraint firstAttribute="trailing" secondItem="NHW-BN-2FF" secondAttribute="trailing" constant="65" id="fqk-IC-vCe"/>
                     <constraint firstItem="GkR-sS-19r" firstAttribute="top" secondItem="NHW-BN-2FF" secondAttribute="bottom" constant="12" symbolic="YES" id="hnH-IC-oth"/>
+                    <constraint firstItem="T1w-os-VZ8" firstAttribute="leading" secondItem="qe3-oz-6NI" secondAttribute="leading" id="iAk-2i-7c4"/>
                     <constraint firstItem="NHW-BN-2FF" firstAttribute="firstBaseline" secondItem="qe3-oz-6NI" secondAttribute="firstBaseline" id="inU-Sg-X60"/>
                     <constraint firstItem="NHW-BN-2FF" firstAttribute="leading" secondItem="qe3-oz-6NI" secondAttribute="trailing" constant="82" id="ja9-8c-WLK"/>
                     <constraint firstItem="qe3-oz-6NI" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="55" id="qpg-bT-fpt"/>
